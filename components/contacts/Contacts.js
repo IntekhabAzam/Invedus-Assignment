@@ -78,9 +78,9 @@ const Contacts = () => {
     </div>
   );
 
-  if (contacts.length != null && contacts.length > 0){
-    content = contactsList;
-  }
+//   if (contacts.length != null && contacts.length > 0){
+//     content = contactsList;
+//   }
 
   return (
     <ul className={classes["contact-list"]}>
