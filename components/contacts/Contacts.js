@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Card from "../ui/Card";
 import classes from "./Contacts.module.css";
 import Link from "next/link";
+import ContactItem from "./ContactItem";
 
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
@@ -34,46 +34,23 @@ const Contacts = () => {
 
   const contactsList = contacts?.map((contact) => {
     return (
-      <li key={contact.id}>
-        <Card className={classes["contact-item"]}>
-          <div className={classes["contact-details"]}>
-            <div>
-              <h3 className={classes.name}>{contact.name}</h3>
-              <div className={classes.description}>
-                {contact.phone} ({contact.type})
-              </div>
-            </div>
-            <div className={classes["profile-picture"]}>
-              <a href={contact.image} rel="noreferrer" target="_blank">
-                Profile Picture Link
-              </a>
-            </div>
-          </div>
-          <div className={classes.action}>
-            <Link key={contact.id} href={`/edit-contact/${contact.id}`}>
-              <button type="button" className={classes.button}>
-                Edit
-              </button>
-            </Link>
-            <button
-              type="buton"
-              className={classes.button}
-              onClick={deleteHandler.bind(null, contact.id)}
-            >
-              Delete
-            </button>
-          </div>
-        </Card>
-      </li>
+      <ContactItem
+        key={contact.id}
+        name={contact.name}
+        phone={contact.phone}
+        type={contact.type}
+        image={contact.image}
+        onDelete={deleteHandler.bind(null, contact.id)}
+      />
     );
   });
 
   let content = (
     <div className={classes.fallback}>
-      <p>No Contacts Saved</p>
+      <h4>No Contacts Saved</h4>
       <Link href="./add-contact">
         <button type="button" className={classes.button}>
-          Add New Contact
+          Add Contact
         </button>
       </Link>
     </div>

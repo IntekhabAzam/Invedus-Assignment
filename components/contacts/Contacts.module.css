@@ -1,24 +1,3 @@
-.contact-details {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.name {
-  margin: 0 0 0.25rem 0;
-}
-.profile-picture {
-  color: #ad5502;
-}
-
-.contact-item {
-  padding: 1rem;
-  margin: 1rem 0;
-}
-
-.action {
-  text-align: end;
-}
-
 .contact-list {
   list-style: none;
   padding: 0;
@@ -27,17 +6,15 @@
 .fallback {
   text-align: center;
 }
-
 .button {
-    padding: 10px 0;
-    width: 125px;
-    margin: 25px 0 0 20px;
+    padding: 10px;
+    width: 100px;
     background-color: #77002e;
     color: white;
-    border: 1px solid white;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-.button:hover {
-  background-color: #a50e48;
-}
+  }
+  .button:hover {
+    background-color: #a50e48;
+  }
