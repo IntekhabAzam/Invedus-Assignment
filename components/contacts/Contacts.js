@@ -3,10 +3,8 @@ import Card from "../ui/Card";
 import classes from "./Contacts.module.css";
 import Link from "next/link";
 
-const contactsData = [];
-
 const Contacts = () => {
-  const [contacts, setContacts] = useState(contactsData);
+  const [contacts, setContacts] = useState([]);
   useEffect(() => {
     if (
       localStorage.getItem("contacts") !== "undefined" &&
@@ -80,7 +78,7 @@ const Contacts = () => {
     </div>
   );
 
-  if (contacts.length > 0){
+  if (contacts && contacts.length > 0){
     content = contactsList;
   }
 
