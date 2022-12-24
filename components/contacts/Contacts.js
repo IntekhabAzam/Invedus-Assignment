@@ -78,7 +78,7 @@ const Contacts = () => {
     </div>
   );
 
-  if (contacts && contacts.length > 0){
+  if (contacts.length != null && contacts.length > 0){
     content = contactsList;
   }
 
