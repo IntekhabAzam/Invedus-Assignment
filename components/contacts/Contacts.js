@@ -69,7 +69,7 @@ const Contacts = () => {
 
   return (
     <ul className={classes["contact-list"]}>
-      {contacts.length === 0 && (
+      {(contacts.length === 0 || contacts.length === '') && (
         <div className={classes.fallback}>
           <p>No Contacts Saved</p>
           <Link href="./add-contact">
