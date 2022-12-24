@@ -7,7 +7,6 @@ const contactsData = [];
 
 const Contacts = () => {
   const [contacts, setContacts] = useState(contactsData);
-  console.log(contacts);
   useEffect(() => {
     if (
       localStorage.getItem("contacts") !== "undefined" &&
