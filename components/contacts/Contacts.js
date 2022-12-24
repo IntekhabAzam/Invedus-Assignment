@@ -6,16 +6,15 @@ import Link from "next/link";
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
   useEffect(() => {
-    if (
-      localStorage.getItem("contacts") !== "undefined" &&
-      localStorage.getItem("contacts") !== ""
-    ) {
-      setContacts(JSON.parse(localStorage.getItem("contacts")));
+    const contactsData = localStorage.getItem("contacts");
+
+    if (contactsData) {
+      setContacts(JSON.parse(contactsData));
     }
   }, []);
 
   const deleteHandler = (contactId) => {
-    if (confirm("Do you want to delete") === true) {
+    if (confirm("Press ok to delete the contact") === true) {
       setContacts((prevContacts) => {
         const updatedGoals = prevContacts.filter(
           (contact) => contact.id !== contactId
@@ -26,9 +25,11 @@ const Contacts = () => {
   };
 
   useEffect(() => {
-    contacts.length > 0
-      ? localStorage.setItem("contacts", JSON.stringify(contacts))
-      : localStorage.setItem("contacts", "");
+    if (contacts.length > 0) {
+      localStorage.setItem("contacts", JSON.stringify(contacts));
+    } else {
+      localStorage.removeItem("contacts");
+    }
   }, [contacts]);
 
   const contactsList = contacts?.map((contact) => {
@@ -78,15 +79,11 @@ const Contacts = () => {
     </div>
   );
 
-//   if (contacts.length != null && contacts.length > 0){
-//     content = contactsList;
-//   }
+  if (contacts.length > 0) {
+    content = contactsList;
+  }
 
-  return (
-    <ul className={classes["contact-list"]}>
-      {content}
-    </ul>
-  );
+  return <ul className={classes["contact-list"]}>{content}</ul>;
 };
 
 export default Contacts;
