@@ -3,8 +3,11 @@ import Card from "../ui/Card";
 import classes from "./Contacts.module.css";
 import Link from "next/link";
 
+const contactsData = [];
+
 const Contacts = () => {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(contactsData);
+  console.log(contacts);
   useEffect(() => {
     if (
       localStorage.getItem("contacts") !== "undefined" &&
@@ -67,19 +70,24 @@ const Contacts = () => {
     );
   });
 
+  let content = (
+    <div className={classes.fallback}>
+      <p>No Contacts Saved</p>
+      <Link href="./add-contact">
+        <button type="button" className={classes.button}>
+          Add New Contact
+        </button>
+      </Link>
+    </div>
+  );
+
+  if (contacts.length > 0){
+    content = contactsList;
+  }
+
   return (
     <ul className={classes["contact-list"]}>
-      {(contacts.length === 0 || contacts.length === '') && (
-        <div className={classes.fallback}>
-          <p>No Contacts Saved</p>
-          <Link href="./add-contact">
-            <button type="button" className={classes.button}>
-              Add New Contact
-            </button>
-          </Link>
-        </div>
-      )}
-      {contactsList}
+      {content}
     </ul>
   );
 };
