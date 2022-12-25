@@ -48,7 +48,7 @@ const ContactForm = (props) => {
     typeInputRef.current.value = "";
     imageInputRef.current.value = "";
 
-    router.push('/');
+    router.push("/");
   }
 
   return (

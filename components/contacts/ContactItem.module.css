@@ -32,3 +32,18 @@
 .button:hover {
   background-color: #a50e48;
 }
+
+@media screen and (max-width: 400px) {
+  .contact-details {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .action {
+    text-align: center;
+  }
+  .button {
+    margin: 25px 10px 0;
+    width: 90px;
+  }
+}
