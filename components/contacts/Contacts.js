@@ -36,6 +36,7 @@ const Contacts = () => {
     return (
       <ContactItem
         key={contact.id}
+        id={contact.id}
         name={contact.name}
         phone={contact.phone}
         type={contact.type}

@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useRef } from "react";
 import Card from "../ui/Card";
 import classes from "./ContactForm.module.css";
 
@@ -7,6 +8,22 @@ const ContactForm = (props) => {
   const phoneInputRef = useRef();
   const imageInputRef = useRef();
   const typeInputRef = useRef();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (props.identifier === "edit") {
+      const contactsData = JSON.parse(localStorage.getItem("contacts"));
+
+      const selectedContact = contactsData.filter(
+        (contact) => contact.id == props.id
+      );
+      nameInputRef.current.value = selectedContact[0].name;
+      phoneInputRef.current.value = selectedContact[0].phone;
+      typeInputRef.current.value = selectedContact[0].type;
+      imageInputRef.current.value = selectedContact[0].image;
+    }
+  }, [props.id, props.identifier]);
 
   function submitHandler(event) {
     event.preventDefault();
@@ -30,6 +47,8 @@ const ContactForm = (props) => {
     phoneInputRef.current.value = "";
     typeInputRef.current.value = "";
     imageInputRef.current.value = "";
+
+    router.push('/');
   }
 
   return (

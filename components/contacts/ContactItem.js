@@ -21,7 +21,7 @@ const ContactItem = (props) => {
           </div>
         </div>
         <div className={classes.action}>
-          <Link key={props.id} href={`/edit-contact/${props.id}`}>
+          <Link href={`/edit-contact/${props.id}`}>
             <button type="button" className={classes.button}>
               Edit
             </button>

@@ -5,8 +5,11 @@ const AddContact = () => {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
-    const stored = localStorage.getItem("contacts");
-    setContacts(stored ? JSON.parse(stored) : []);
+    const contactsData = localStorage.getItem("contacts");
+
+    if (contactsData) {
+      setContacts(JSON.parse(contactsData));
+    }
   }, []);
 
   const addContactHandler = (contact) => {
