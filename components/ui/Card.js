@@ -7,14 +7,3 @@ function Card(props) {
 }
 
 export default Card;
-
-// import React from 'react'
-// import classes from './Card.module.css';
-
-// export default function Card(props) {
-
-//     const lasses = `${classes.card}  ${props.className}`;
-//   return (
-//     <div className = {lasses}>{props.children}</div>
-//   )
-// }
