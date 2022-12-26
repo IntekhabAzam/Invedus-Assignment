@@ -28,25 +28,15 @@ const ContactForm = (props) => {
   function submitHandler(event) {
     event.preventDefault();
 
-    const enteredName = nameInputRef.current.value;
-    const enteredPhone = phoneInputRef.current.value;
-    const enteredType = typeInputRef.current.value;
-    const enteredImage = imageInputRef.current.value;
-
     const contactData = {
       id: Date.now(),
-      name: enteredName,
-      phone: enteredPhone,
-      type: enteredType,
-      image: enteredImage,
+      name: nameInputRef.current.value,
+      phone: phoneInputRef.current.value,
+      type: typeInputRef.current.value,
+      image: imageInputRef.current.value,
     };
 
     props.onAddContact(contactData);
-
-    nameInputRef.current.value = "";
-    phoneInputRef.current.value = "";
-    typeInputRef.current.value = "";
-    imageInputRef.current.value = "";
 
     router.push("/");
   }

@@ -5,6 +5,7 @@ import ContactItem from "./ContactItem";
 
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
+
   useEffect(() => {
     const contactsData = localStorage.getItem("contacts");
 
@@ -32,20 +33,6 @@ const Contacts = () => {
     }
   }, [contacts]);
 
-  const contactsList = contacts?.map((contact) => {
-    return (
-      <ContactItem
-        key={contact.id}
-        id={contact.id}
-        name={contact.name}
-        phone={contact.phone}
-        type={contact.type}
-        image={contact.image}
-        onDelete={deleteHandler.bind(null, contact.id)}
-      />
-    );
-  });
-
   let content = (
     <div className={classes.fallback}>
       <h4>No Contacts Saved</h4>
@@ -56,9 +43,20 @@ const Contacts = () => {
       </Link>
     </div>
   );
-
   if (contacts.length > 0) {
-    content = contactsList;
+    content = contacts?.map((contact) => {
+      return (
+        <ContactItem
+          key={contact.id}
+          id={contact.id}
+          name={contact.name}
+          phone={contact.phone}
+          type={contact.type}
+          image={contact.image}
+          onDelete={deleteHandler.bind(null, contact.id)}
+        />
+      );
+    });
   }
 
   return <ul className={classes["contact-list"]}>{content}</ul>;
