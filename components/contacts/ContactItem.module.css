@@ -6,6 +6,9 @@
 .name {
   margin: 0 0 0.25rem 0;
 }
+.isWhatsapp {
+  margin-top: 0.25rem;
+}
 .profile-picture {
   color: #ad5502;
 }

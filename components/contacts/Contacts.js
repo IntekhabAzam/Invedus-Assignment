@@ -52,6 +52,7 @@ const Contacts = () => {
           name={contact.name}
           phone={contact.phone}
           type={contact.type}
+          isWhatsapp={contact.isWhatsapp}
           image={contact.image}
           onDelete={deleteHandler.bind(null, contact.id)}
         />

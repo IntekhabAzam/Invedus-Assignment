@@ -13,6 +13,7 @@ const ContactItem = (props) => {
             <div>
               {props.phone} ({props.type})
             </div>
+            {props.isWhatsapp === true && <p className={classes.isWhatsapp}>Whatsapp available</p>}
           </div>
           <div className={classes["profile-picture"]}>
             <a href={props.image} rel="noreferrer" target="_blank">

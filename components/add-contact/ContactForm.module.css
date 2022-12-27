@@ -3,7 +3,7 @@
 }
 
 .control {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .control label {
@@ -20,6 +20,19 @@
   border: 1px solid #ccc;
   padding: 0.25rem;
   width: 100%;
+}
+
+.isWhatsapp {
+  margin: 1rem 0 0.8rem;
+}
+
+.isWhatsapp p {
+  display: inline;
+  font-weight: bold;
+}
+
+.isWhatsapp label {
+  margin: 0 5px 0 20px;
 }
 
 .actions {

@@ -8,6 +8,7 @@ const ContactForm = (props) => {
   const phoneInputRef = useRef();
   const imageInputRef = useRef();
   const typeInputRef = useRef();
+  const whatsappInputRef = useRef();
 
   const router = useRouter();
 
@@ -21,18 +22,20 @@ const ContactForm = (props) => {
       nameInputRef.current.value = selectedContact[0].name;
       phoneInputRef.current.value = selectedContact[0].phone;
       typeInputRef.current.value = selectedContact[0].type;
+      whatsappInputRef.current.checked = selectedContact[0].isWhatsapp;
       imageInputRef.current.value = selectedContact[0].image;
     }
   }, [props.id, props.identifier]);
 
   function submitHandler(event) {
     event.preventDefault();
-
+    
     const contactData = {
       id: Date.now(),
       name: nameInputRef.current.value,
       phone: phoneInputRef.current.value,
       type: typeInputRef.current.value,
+      isWhatsapp: whatsappInputRef.current.checked,
       image: imageInputRef.current.value,
     };
 
@@ -58,6 +61,17 @@ const ContactForm = (props) => {
             <option>personal</option>
             <option>office</option>
           </select>
+        </div>
+        <div className={classes.isWhatsapp}>
+          <p>isWhatsapp</p>
+          <label htmlFor="isWhatsapp">Yes</label>
+          <input
+            type="checkbox"
+            id="isWhatsapp"
+            name="isWhatsapp"
+            value="Yes"
+            ref={whatsappInputRef}
+          />
         </div>
         <div className={classes.control}>
           <label htmlFor="image">profilePicture</label>
