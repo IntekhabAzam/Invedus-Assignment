@@ -2,6 +2,9 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef } from "react";
 import Card from "../ui/Card";
 import classes from "./ContactForm.module.css";
+import { fireDb } from "../../firebaseConfig/firebase";
+import { uid } from "uid";
+import { ref, set, onValue, update } from "firebase/database";
 
 const ContactForm = (props) => {
   const nameInputRef = useRef();
@@ -13,25 +16,26 @@ const ContactForm = (props) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (props.identifier === "edit") {
-      const contactsData = JSON.parse(localStorage.getItem("contacts"));
+    if (props.dynamicId) {
+      onValue(ref(fireDb), (data) => {
+        const responseData = data.val();
 
-      const selectedContact = contactsData.filter(
-        (contact) => contact.id == props.id
-      );
-      nameInputRef.current.value = selectedContact[0].name;
-      phoneInputRef.current.value = selectedContact[0].phone;
-      typeInputRef.current.value = selectedContact[0].type;
-      whatsappInputRef.current.checked = selectedContact[0].isWhatsapp;
-      imageInputRef.current.value = selectedContact[0].image;
+        const selectedContact = responseData[props.dynamicId];
+        nameInputRef.current.value = selectedContact.name;
+        phoneInputRef.current.value = selectedContact.phone;
+        typeInputRef.current.value = selectedContact.type;
+        whatsappInputRef.current.checked = selectedContact.isWhatsapp;
+        imageInputRef.current.value = selectedContact.image;
+      });
     }
-  }, [props.id, props.identifier]);
+  }, [props.dynamicId, props.identifier]);
 
-  function submitHandler(event) {
+  async function submitHandler(event) {
     event.preventDefault();
-    
+
+    const uuid = uid();
+
     const contactData = {
-      id: Date.now(),
       name: nameInputRef.current.value,
       phone: phoneInputRef.current.value,
       type: typeInputRef.current.value,
@@ -39,7 +43,11 @@ const ContactForm = (props) => {
       image: imageInputRef.current.value,
     };
 
-    props.onAddContact(contactData);
+    if (props.dynamicId) {
+      update(ref(fireDb, `/${props.dynamicId}`), contactData);
+    } else {
+      set(ref(fireDb, `/${uuid}`), contactData);
+    }
 
     router.push("/");
   }

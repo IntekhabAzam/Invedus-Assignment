@@ -2,36 +2,38 @@ import React, { useEffect, useState } from "react";
 import classes from "./Contacts.module.css";
 import Link from "next/link";
 import ContactItem from "./ContactItem";
+import { onValue, ref, remove } from "firebase/database";
+import { fireDb } from "../../firebaseConfig/firebase";
 
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
 
-  useEffect(() => {
-    const contactsData = localStorage.getItem("contacts");
+  useEffect(()=>{
+    onValue(ref(fireDb), (data)=> {
+      const responseData = data.val();
+      
+      const loadedContacts = [];
 
-    if (contactsData) {
-      setContacts(JSON.parse(contactsData));
-    }
-  }, []);
+      for (const key in responseData) {
+        loadedContacts.push({
+          id: key,
+          name: responseData[key].name,
+          phone: responseData[key].phone,
+          type: responseData[key].type,
+          isWhatsapp: responseData[key].isWhatsapp,
+          image: responseData[key].image,
+        });
+      }
+      setContacts(loadedContacts);
+    })
+  },[])
 
   const deleteHandler = (contactId) => {
+    console.log(contactId)
     if (confirm("Press ok to delete the contact") === true) {
-      setContacts((prevContacts) => {
-        const updatedGoals = prevContacts.filter(
-          (contact) => contact.id !== contactId
-        );
-        return updatedGoals;
-      });
+      remove(ref(fireDb, `/${contactId}`));
     }
   };
-
-  useEffect(() => {
-    if (contacts.length > 0) {
-      localStorage.setItem("contacts", JSON.stringify(contacts));
-    } else {
-      localStorage.removeItem("contacts");
-    }
-  }, [contacts]);
 
   let content = (
     <div className={classes.fallback}>
