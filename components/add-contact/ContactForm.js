@@ -28,7 +28,7 @@ const ContactForm = (props) => {
         imageInputRef.current.value = selectedContact.image;
       });
     }
-  }, [props.dynamicId, props.identifier]);
+  }, [props.dynamicId]);
 
   async function submitHandler(event) {
     event.preventDefault();

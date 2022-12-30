@@ -8,10 +8,10 @@ import { fireDb } from "../../firebaseConfig/firebase";
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
 
-  useEffect(()=>{
-    onValue(ref(fireDb), (data)=> {
+  useEffect(() => {
+    onValue(ref(fireDb), (data) => {
       const responseData = data.val();
-      
+
       const loadedContacts = [];
 
       for (const key in responseData) {
@@ -25,11 +25,11 @@ const Contacts = () => {
         });
       }
       setContacts(loadedContacts);
-    })
-  },[])
+    });
+  }, []);
 
   const deleteHandler = (contactId) => {
-    console.log(contactId)
+    console.log(contactId);
     if (confirm("Press ok to delete the contact") === true) {
       remove(ref(fireDb, `/${contactId}`));
     }
