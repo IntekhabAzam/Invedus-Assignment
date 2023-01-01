@@ -13,13 +13,11 @@ const ContactItem = (props) => {
             <div>
               {props.phone} ({props.type})
             </div>
-            {props.isWhatsapp === true && <p className={classes.isWhatsapp}>Whatsapp available</p>}
+            {props.isWhatsapp === true && <div className={classes.isWhatsapp}>Whatsapp available</div>}
           </div>
-          {/* <div className={classes["profile-picture"]}> */}
-            <a href={props.image} rel="noreferrer" target="_blank">
+          <a href={props.image} rel="noreferrer" target="_blank">
             <img src={props.image} alt="" className={classes["profile-picture"]} />
-            </a>
-          {/* </div> */}
+          </a>
         </div>
         <div className={classes.action}>
           <Link href={`/edit-contact/${props.id}`}>
