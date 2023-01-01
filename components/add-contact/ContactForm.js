@@ -17,15 +17,14 @@ const ContactForm = (props) => {
 
   useEffect(() => {
     if (props.dynamicId) {
-      onValue(ref(fireDb), (data) => {
-        const responseData = data.val();
+      onValue(ref(fireDb, `/${props.dynamicId}`), (data) => {
+        const contactForEdit = data.val();
 
-        const selectedContact = responseData[props.dynamicId];
-        nameInputRef.current.value = selectedContact.name;
-        phoneInputRef.current.value = selectedContact.phone;
-        typeInputRef.current.value = selectedContact.type;
-        whatsappInputRef.current.checked = selectedContact.isWhatsapp;
-        imageInputRef.current.value = selectedContact.image;
+        nameInputRef.current.value = contactForEdit.name;
+        phoneInputRef.current.value = contactForEdit.phone;
+        typeInputRef.current.value = contactForEdit.type;
+        whatsappInputRef.current.checked = contactForEdit.isWhatsapp;
+        imageInputRef.current.value = contactForEdit.image;
       });
     }
   }, [props.dynamicId]);
@@ -86,7 +85,7 @@ const ContactForm = (props) => {
           <input type="url" required id="image" ref={imageInputRef} />
         </div>
         <div className={classes.actions}>
-          <button>Add Contact</button>
+        <button>{props.dynamicId ? "Update Contact" : "Add Contact"}</button>
         </div>
       </form>
     </Card>

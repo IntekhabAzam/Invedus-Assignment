@@ -10,7 +10,9 @@
   margin-top: 0.25rem;
 }
 .profile-picture {
-  color: #ad5502;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
 }
 
 .contact-item {

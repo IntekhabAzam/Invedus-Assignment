@@ -15,11 +15,11 @@ const ContactItem = (props) => {
             </div>
             {props.isWhatsapp === true && <p className={classes.isWhatsapp}>Whatsapp available</p>}
           </div>
-          <div className={classes["profile-picture"]}>
+          {/* <div className={classes["profile-picture"]}> */}
             <a href={props.image} rel="noreferrer" target="_blank">
-              Profile Picture Link
+            <img src={props.image} alt="" className={classes["profile-picture"]} />
             </a>
-          </div>
+          {/* </div> */}
         </div>
         <div className={classes.action}>
           <Link href={`/edit-contact/${props.id}`}>
