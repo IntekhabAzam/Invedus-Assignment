@@ -3,10 +3,12 @@ import classes from "./Contacts.module.css";
 import Link from "next/link";
 import ContactItem from "./ContactItem";
 import { onValue, ref, remove } from "firebase/database";
-import { fireDb } from "../../firebaseConfig/firebase";
+import { fireDb, storage } from "../../firebaseConfig/firebase";
+import { deleteObject, ref as sRef } from "firebase/storage";
 
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     onValue(ref(fireDb), (data) => {
@@ -24,6 +26,7 @@ const Contacts = () => {
           image: responseData[key].image,
         });
       }
+      setLoading(false);
       setContacts(loadedContacts);
     });
   }, []);
@@ -32,20 +35,24 @@ const Contacts = () => {
     console.log(contactId);
     if (confirm("Press ok to delete the contact") === true) {
       remove(ref(fireDb, `/${contactId}`));
+      deleteObject(sRef(storage, `/images/${contactId}`));
     }
   };
 
-  let content = (
-    <div className={classes.fallback}>
-      <h4>No Contacts Saved</h4>
-      <Link href="./add-contact">
-        <button type="button" className={classes.button}>
-          Add Contact
-        </button>
-      </Link>
-    </div>
-  );
-  if (contacts.length > 0) {
+  let content = <p className={classes["contacts-status"]}>Loading...</p>
+  if (contacts.length === 0 && !loading) {
+    content = (
+      <div className={classes["contacts-status"]}>
+        <h4>No Contacts Saved</h4>
+        <Link href="./add-contact">
+          <button type="button" className={classes.button}>
+            Add Contact
+          </button>
+        </Link>
+      </div>
+    );
+  }
+  if (contacts.length > 0 && !loading) {
     content = contacts?.map((contact) => {
       return (
         <ContactItem

@@ -51,8 +51,10 @@
   font-weight: bold;
 }
 
-.actions button:hover,
-.actions button:active {
+.actions button:hover {
   background-color: #a50e48;
   border-color: #a50e48;
+}
+.actions button:disabled {
+  opacity: 0.5;
 }
